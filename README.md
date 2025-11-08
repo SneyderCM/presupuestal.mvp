@@ -1,3 +1,4 @@
+# Sistema Presupuestal Offline – MVP Funcional
 
 ## ¿Qué hace?
 - Registra ingresos y gastos sin internet

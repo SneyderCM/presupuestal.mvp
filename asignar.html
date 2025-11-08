@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Asignar Presupuesto Mensual</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📋 Asignar Presupuesto Mensual</h1>
+
+  <form id="formPresupuesto">
+    <label>Asignar Presupuesto:</label><br>
+    <input type="number" id="montoPresupuesto" min="1" value="1000000" required><br><br>
+
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="window.location='index.html'">Cancelar</button>
+  </form>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('formPresupuesto').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const monto = parseFloat(document.getElementById('montoPresupuesto').value);
+      localStorage.setItem('presupuesto', monto);
+      alert('Presupuesto asignado: $' + monto);
+      window.location = 'index.html';
+    });
+  </script>
+</body>
+</html>

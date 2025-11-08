@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resumen Mensual</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>📊 Resumen del Mes</h1>
+
+  <!-- Alerta de presupuesto (naranja si ≥80%) -->
+  <div id="alerta" class="alerta"></div>
+
+  <!-- Totales -->
+  <div class="totales">
+    <div class="total">
+      <strong>Presupuesto asignado:</strong> $<span id="presupuesto">0</span>
+    </div>
+    <div class="total">
+      <strong>Gastos acumulados:</strong> $<span id="gastos">0</span>
+    </div>
+    <div class="total">
+      <strong>Saldo actual:</strong> $<span id="saldo">0</span>
+    </div>
+    <div class="total">
+      <strong>Ingresos (informativo):</strong> $<span id="ingresos">0</span>
+    </div>
+  </div>
+
+  <!-- Últimos registros -->
+  <div class="ultimos-registros">
+    <h3>Últimos registros:</h3>
+    <ul id="lista-registros"></ul>
+  </div>
+
+  <button onclick="window.location='index.html'">Regresar</button>
+
+  <script src="script.js"></script>
+  <script>
+    const presupuesto = getPresupuesto();
+    const gastos = getGastosTotales();
+    const ingresos = getIngresosTotales();
+    const saldo = getSaldoActual(); // presupuesto - gastos
+
+    document.getElementById('presupuesto').textContent = presupuesto;
+    document.getElementById('gastos').textContent = gastos;
+    document.getElementById('saldo').textContent = saldo;
+    document.getElementById('ingresos').textContent = ingresos;
+
+    // Mostrar alerta si gastos ≥ 80% del presupuesto
+    const alertaDiv = document.getElementById('alerta');
+    if (estaEnAlerta()) {
+      alertaDiv.textContent = '⚠️ ¡Cuidado! Ya usaste el 80% de tu presupuesto mensual.';
+      alertaDiv.classList.add('alerta-naranja');
+    } else {
+      alertaDiv.textContent = '';
+    }
+
+    // Mostrar últimos registros
+    const transacciones = getTransacciones();
+    const lista = document.getElementById('lista-registros');
+    if (transacciones.length === 0) {
+      lista.innerHTML = '<li>No hay transacciones registradas.</li>';
+    } else {
+      let html = '';
+      transacciones.slice(-5).reverse().forEach(t => {
+        html += `<li>[${t.fecha}] ${t.tipo === 'ingreso' ? 'Ingreso' : 'Gasto'}: ${t.descripcion || 'Sin descripción'} – $${t.monto}</li>`;
+      });
+      lista.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

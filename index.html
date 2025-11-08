@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema Presupuestal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>💰 Sistema Presupuestal Offline</h1>
+
+  <p><strong>Saldo actual:</strong> <span id="saldo">$0</span></p>
+  <p><strong>Presupuesto mensual:</strong> <span id="presupuesto">$0</span></p>
+
+  <div class="botones">
+    <button onclick="window.location='asignar.html'">Asignar Presupuesto</button>
+    <button onclick="window.location='registrar.html'">Registro Ingreso</button>
+    <button onclick="window.location='registrar.html?tipo=gasto'">Registro Gastos</button>
+    <button onclick="window.location='resumen.html'">Ver Resumen</button>
+  </div>
+
+  <!-- Botón para reiniciar (solo pruebas) -->
+  <button onclick="reiniciarDatos()" style="background: #ff6b6b; margin-top: 20px;">
+    🔁 Reiniciar todo (solo para pruebas)
+  </button>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('saldo').textContent = '$' + getSaldoActual();
+    document.getElementById('presupuesto').textContent = '$' + getPresupuesto();
+  </script>
+</body>
+</html>

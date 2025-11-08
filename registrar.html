@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registrar Gasto o Ingreso</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>➕ Registrar Gasto o Ingreso</h1>
+
+  <form id="formTransaccion">
+    <!-- Tipo de transacción (ingreso o gasto) -->
+    <label>Tipo: 
+      <select id="tipo">
+        <option value="ingreso">Ingreso</option>
+        <option value="gasto">Gasto</option>
+      </select>
+    </label><br><br>
+
+    <label>Monto: <input type="number" id="monto" min="1" required></label><br><br>
+    
+    <label>Fecha (por defecto: hoy): <input type="text" id="fecha" value="" readonly></label><br><br>
+    
+    <label>Descripción: <textarea id="descripcion" rows="4" cols="50" placeholder="Ej: Gasolina semanal"></textarea></label><br><br>
+
+    <button type="submit">Guardar</button>
+    <button type="button" onclick="window.location='index.html'">Cancelar</button>
+  </form>
+
+  <script src="script.js"></script>
+  <script>
+    // Si viene de "Registro Gastos", selecciona automáticamente "Gasto"
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('tipo') === 'gasto') {
+      document.getElementById('tipo').value = 'gasto';
+    }
+
+    // Poner fecha actual por defecto
+    document.getElementById('fecha').value = new Date().toISOString().slice(0,10);
+
+    document.getElementById('formTransaccion').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const tipo = document.getElementById('tipo').value;
+      const monto = parseFloat(document.getElementById('monto').value);
+      const descripcion = document.getElementById('descripcion').value;
+      const fecha = document.getElementById('fecha').value;
+
+      agregarTransaccion({ tipo, monto, descripcion, fecha });
+      alert('Transacción guardada');
+      window.location = 'index.html';
+    });
+  </script>
+</body>
+</html>
